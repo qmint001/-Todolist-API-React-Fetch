@@ -1,4 +1,4 @@
-import { useTodoList } from "@/services/useTodoList";
+import { useTodoList } from "./services/useTodoList";
 
 export function TodoList() {
   const todo = useTodoList();
@@ -12,13 +12,13 @@ export function TodoList() {
           todo.changeTask(e.target.value);
         }}
         onKeyDown={(e) => {
-          if (ev.key === "Enter") {
+          if (e.key === "Enter") {
             todo.addTask();
           }
         }}
       />
       <ul>
-        {list.map((item, index) => {
+        {todo.list.map((item, index) => {
           if (item.done) return null;
           return (
             <li key={item.task}>

@@ -15,11 +15,35 @@ export const useTodoList = create((set) => ({
     }));
   },
 
-  completeTask: (index) => {
+  updateTask: (index, newData) => {
     set((store) => {
       const newList = [...store.list];
-      newList[index].done = true;
+      newList[index] = { ...newList[index], ...newData };
       return { list: newList };
     });
+  },
+
+  getDataFromAPI: () => {
+    const options = { method: "GET" };
+
+    fetch("https://assets.breatheco.de/apis/fake/todos/user/qmint001", options)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        set({ list: data });
+      });
+  },
+
+  updateDataAPI: () => {
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(useTodoListStore.getState().list),
+    };
+
+    fetch("https://assets.breatheco.de/apis/fake/todos/user/qmint001", options);
   },
 }));

@@ -9,11 +9,12 @@ export function TodoList() {
         value={todo.task}
         type={"text"}
         onChange={(e) => {
-          todo.changeTask(e.target.value);
+          console.log("Updating task:", e.target.value);
+          todo && todo.changeTask && todo.changeTask(e.target.value);
         }}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            todo.addTask();
+            todo && todo.addTask && todo.addTask();
           }
         }}
       />
@@ -25,9 +26,9 @@ export function TodoList() {
               {item.task}
               <button
                 onClick={() => {
-                  const aux = [...list];
+                  const aux = [...todo.list];
                   aux[index].done = true;
-                  setList(aux);
+                  todo.setList(aux);
                 }}
               >
                 X
